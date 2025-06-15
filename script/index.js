@@ -56,7 +56,7 @@ function displayCategoris(categories){
         const cetagoridiv = document.createElement("div");
         cetagoridiv.innerHTML = `
          
-         <button onclick = "loadcategoriesVideos(${cat.category_id})" class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white" > ${cat.category}</button>
+         <button id="btn-${cat.category_id}" onclick = "loadcategoriesVideos(${cat.category_id})" class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white" > ${cat.category}</button>
         `
 
         categoriesContainer.appendChild(cetagoridiv);
@@ -68,6 +68,18 @@ const displayvideos = (videos) => {
     const videocontainer = document.getElementById("video-container");
 
     videocontainer.innerHTML = "";
+
+    if(videos.length ==0) {
+         videocontainer.innerHTML = `
+         
+          <div class="py-20 col-span-full flex flex-col justify-center items-center text-center">
+            <img class="w-[120px]" src="image/Icon.png" alt="">
+            <h2 class="text-2xl font-bold">Oops!! Sorry, There is no content here</h2>
+        </div>
+         `;
+         return;
+
+    }
     videos.forEach(video => {
         console.log(video);
      
