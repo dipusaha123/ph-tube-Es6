@@ -1,4 +1,12 @@
 
+const showLoader = () => {
+    document.getElementById("loader").classList.remove("hidden");
+    document.getElementById("video-container").classList.add("hidden");
+}
+const hideLoader = () => {
+    document.getElementById("loader").classList.add("hidden");
+    document.getElementById("video-container").classList.remove("hidden");
+}
 
 function loadCetagories (){
 
@@ -35,16 +43,19 @@ function removeActiveClass (){
     }
 }
 
-function loadvideos (){
-    fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+function loadvideos (searchText = ""){
+    showLoader();
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}`)
     .then((Response) => Response.json())
     .then((data) => {
+           removeActiveClass();
         document.getElementById("btn-all").classList.add("active");
         displayvideos(data.videos)
     })
 }
 
 const loadcategoriesVideos = (id) => {
+    showLoader();
     
     const url = `
     https://openapi.programming-hero.com/api/phero-tube/category/${id}
@@ -130,6 +141,7 @@ const displayvideos = (videos) => {
             <h2 class="text-2xl font-bold">Oops!! Sorry, There is no content here</h2>
         </div>
          `;
+         hideLoader();
          return;
 
     }
@@ -157,7 +169,7 @@ const displayvideos = (videos) => {
                 <div class="into">
                 <h2 class="text-sm font-semibold">Midnight Serenade</h2>
                 <p class="text-sm text-gray-400 flex gap-1">${video.authors[0].profile_name} 
-                ${video.authors[0].verified  == true ? ` `: `` }
+                ${video.authors[0].verified  == true ? ` <img class="w-5 h-5" src="https://img.icons8.com/?size=96&id=98A4yZTt9abw&format=png" alt=""></p>`: `` }
                 
                 <p class="text-sm text-gray-400">${video.others.views}</p>
                 </div>   
@@ -169,7 +181,12 @@ const displayvideos = (videos) => {
         videocontainer.append(videoCard)
         
     });
+    hideLoader();
 
 }
+document.getElementById("search-input").addEventListener("keyup", (e) =>{
+const input = e.target.value;
+loadvideos(input)
+})
 
 loadCetagories();

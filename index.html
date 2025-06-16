@@ -24,10 +24,24 @@
                 <img class="w-[120px]" src="image/Logo.png" alt="">
             </div>
             <div class="sort">
-                <button class="btn">Sort by view</button>
+               <label class="input">
+                <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                    stroke-width="2.5"
+                    fill="none"
+                    stroke="currentColor"
+                    >
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.3-4.3"></path>
+                    </g>
+                </svg>
+                <input id="search-input" type="search" required placeholder="Search" />
+                </label>
             </div>
             <div class="blogs">
-                <button class="btn text-white bg-[#FF1F3D]">Blog</button>
+                <button class="btn text-white bg-[#FF1F3D]">Sort By View</button>
             </div>
 
         </nav>
@@ -42,6 +56,10 @@
         </div>
 
     </nav>
+
+    <section id="loader" class="text-center py-10 hidden">
+        <span class="loading loading-dots loading-xl"></span>
+    </section>
 
     <!------------------ video-container ------------------>
     <section class="w-11/12 mx-auto grid grid-cols-4 gap-5" id="video-container">
@@ -58,7 +76,7 @@
 <dialog id="video_details" class="modal">
   <div class="modal-box">
     <div id="details-container">
-        
+
     </div>
     <div class="modal-action">
       <form method="dialog">
