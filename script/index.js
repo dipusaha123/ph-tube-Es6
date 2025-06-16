@@ -28,10 +28,20 @@ function loadCetagories (){
 //     "description": "Dave Chappelle's 'Sticks & Stones' has garnered 113K views and remains a controversial yet highly engaging piece of stand-up comedy. Known for his fearless approach, Dave dives into a wide range of topics, delivering his unique perspective with wit and sharp humor. As a verified artist, Dave's comedy is raw, honest, and unapologetically funny."
 // }
 
+function removeActiveClass (){
+    const activeButtons = document.getElementsByClassName("active");
+    for(let btn of activeButtons){
+        btn.classList.remove("active");
+    }
+}
+
 function loadvideos (){
     fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
     .then((Response) => Response.json())
-    .then((data) => displayvideos(data.videos))
+    .then((data) => {
+        document.getElementById("btn-all").classList.add("active");
+        displayvideos(data.videos)
+    })
 }
 
 const loadcategoriesVideos = (id) => {
@@ -43,7 +53,13 @@ const loadcategoriesVideos = (id) => {
 
     fetch(url)
     .then((res) => res.json())
-    .then ((data) => displayvideos(data.category))
+    .then ((data) => {
+        removeActiveClass();
+        const clickButton = document.getElementById(`btn-${id}`);
+        clickButton.classList.add("active")
+        console.log(clickButton)
+        displayvideos(data.category)
+    })
 
 }
 
